@@ -7,9 +7,7 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-    return (
-        <MaterialThemeProvider theme={ theme }>
-            { children }
-        </MaterialThemeProvider>
-    );
+    return (<MaterialThemeProvider theme={ theme }>
+        { children }
+    </MaterialThemeProvider>);
 }

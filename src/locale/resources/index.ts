@@ -3,9 +3,9 @@ import spanish from './es.json';
 
 export const resources = {
     en: {
-        translation: english
+        translation: english,
     },
     es: {
-        translation: spanish
-    }
+        translation: spanish,
+    },
 };
