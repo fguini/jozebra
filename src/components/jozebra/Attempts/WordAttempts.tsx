@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { WordRow } from './WordRow';
+import { Attempt } from '../GameUtils';
 
 const Container = styled.div`
   display: flex;
@@ -9,17 +10,23 @@ const Container = styled.div`
 `;
 
 interface WordAttemptsProps {
+    currentWord: string;
     quantity: number;
-    theWord: string;
     wordLength: number;
-    words: Array<string>;
+    attempts: Array<Attempt>;
 }
 
-export function WordAttempts({ quantity, theWord, wordLength, words }: WordAttemptsProps) {
+export function WordAttempts({ attempts, currentWord, quantity, wordLength }: WordAttemptsProps) {
+    const currentAttempt = { word: currentWord, letterStatuses: [] };
+    const currentWordIndex = attempts.length;
     return (<Container>
         {
             [ ...Array(quantity) ].map((_, i) =>
-                <WordRow key={ i } length={ wordLength } theWord={ theWord } word={ words[i] }/>)
+                <WordRow
+                    key={ i }
+                    attempt={ i === currentWordIndex ? currentAttempt : attempts[i] }
+                    length={ wordLength }
+                />)
         }
     </Container>);
 }

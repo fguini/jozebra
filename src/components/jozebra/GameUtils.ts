@@ -14,6 +14,14 @@ export const STATUS_COLOR = {
     [LetterStatus.InPlace]: green['600'],
 };
 
+export interface Attempt {
+    letterStatuses: Array<LetterStatus>;
+    word: string;
+}
+
+export const BACKSPACE_KEY = 'Backspace';
+export const ENTER_KEY = 'Enter';
+
 const spanishLocale = 'es';
 
 const firstRow = 'qwertyuiop'.split('');

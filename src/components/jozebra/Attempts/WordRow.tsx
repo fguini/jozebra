@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { LetterStatus } from '../GameUtils';
+import { Attempt } from '../GameUtils';
 import { LetterBox } from './LetterBox';
 
 const Container = styled.div`
@@ -10,42 +10,15 @@ const Container = styled.div`
 `;
 
 interface WordProps {
+    attempt: Attempt;
     length: number;
-    theWord: string;
-    word?: string;
 }
 
-function getLetterStatuses(theWord: string, word: string): Array<LetterStatus> {
-    const letterStatuses = Array(theWord.length);
-    const inPlaceLetters = [];
-    const theWordLetters = theWord.split('');
-
-    for(let i = 0; i < word.length; i++) {
-        if(theWord[i] === word[i]) {
-            letterStatuses[i] = LetterStatus.InPlace;
-            inPlaceLetters.push(word[i]);
-        }
-    }
-
-    for(let i = 0; i < word.length; i++) {
-        if(theWordLetters.includes(word[i]) && !inPlaceLetters.includes(word[i])) {
-            letterStatuses[i] = LetterStatus.InWord;
-        }
-    }
-
-    return letterStatuses;
-}
-
-export function WordRow({ length, theWord, word = '' }: WordProps) {
-    let letterStatuses = useMemo(
-        () => getLetterStatuses(theWord, word),
-        [ theWord, word ],
-    );
-
+export function WordRow({ attempt, length }: WordProps) {
     return (<Container>
         {
             [ ...Array(length) ].map((_, i) =>
-                <LetterBox key={ i } letter={ word[i] } status={ letterStatuses[i] }/>,
+                <LetterBox key={ i } letter={ attempt?.word[i] } status={ attempt?.letterStatuses[i] }/>,
             )
         }
     </Container>);
