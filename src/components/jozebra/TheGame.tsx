@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { WordAttempts } from './Attempts/WordAttempts';
 import { Keyboard } from './Keboard/Keyboard';
-import { Attempt, BACKSPACE_KEY, ENTER_KEY, LetterStatus } from './GameUtils';
+import { Attempt, LetterStatus } from './GameUtils';
 
 interface TheGameProps {
     quantity?: number;
@@ -36,24 +36,6 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
         () => words.map((word) => ({ letterStatuses: getLetterStatuses(theWord, word), word }))
     );
     const [ currentWord, setCurrentWord ] = useState<string>('');
-
-    useEffect(() => {
-        const handleKeyUp = ({ key }: KeyboardEvent) => {
-            if (key.length === 1 && /[a-z]/i.test(key)) {
-                handleClick(key);
-            } else if(key === BACKSPACE_KEY) {
-                handleErase();
-            } else if(key === ENTER_KEY) {
-                handleSubmit();
-            }
-        }
-
-        window.addEventListener('keyup', handleKeyUp);
-
-        return () => {
-            window.removeEventListener('keyup', handleKeyUp);
-        };
-    }, [ currentWord ]);
 
     function handleClick(letter: string) {
         if(currentWord.length < wordLength) {

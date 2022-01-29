@@ -22,21 +22,25 @@ const Box = styled.button<BoxProps>`
   font-weight: 600;
   text-transform: capitalize;
   
-  &:active{
-    background-color: #e6007e;
+  &:active, &.active {
+      background-color: ${ STATUS_COLOR[LetterStatus.NotThere] };
   }
 `;
 
 interface KeyBoxProps {
-    letter: string;
+    children?: React.ReactNode;
     handleClick: (letter: string) => void;
+    letter: string;
     status?: LetterStatus;
 }
 
-export function KeyBox({ letter, handleClick, status }: KeyBoxProps) {
+export function KeyBox({ children, handleClick, letter, status }: KeyBoxProps) {
     return (
-        <Box color={ status && STATUS_COLOR[status] } onClick={ () => handleClick(letter) }>
-            { letter }
+        <Box
+            id={ `key-${ letter.toLowerCase() }` }
+            color={ status && STATUS_COLOR[status] }
+            onClick={ () => handleClick(letter) }>
+            { children || letter }
         </Box>
     );
 }

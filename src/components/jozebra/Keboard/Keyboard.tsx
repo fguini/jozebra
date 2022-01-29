@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { getKeyboard } from '../GameUtils';
+import { Backspace } from '@mui/icons-material';
+import { BACKSPACE_KEY, ENTER_KEY, getKeyboard } from '../GameUtils';
 import { KeyBox } from './KeyBox';
 
 const Container = styled.div`
@@ -27,6 +28,37 @@ export function Keyboard({ handleClick, handleErase, handleSubmit }: KeyboardPro
     const { i18n } = useTranslation();
     const keyboardKeys = useMemo(() => getKeyboard(i18n.language), [ i18n.language ]);
 
+    useEffect(() => {
+        function runOnKeyEvent(key: string, callback: (element: HTMLElement) => void) {
+            if (
+                (key.length === 1 && /[a-zñ]/i.test(key))
+                || [ BACKSPACE_KEY, ENTER_KEY ].includes(key)
+            ) {
+                const element = document.getElementById(`key-${key.toLowerCase()}`);
+                if(element) {
+                    callback(element);
+                }
+            }
+        }
+
+        const handleKeyUp = ({ key }: KeyboardEvent) => runOnKeyEvent(key, (element) => {
+            element.classList.remove('active');
+            element.click();
+        });
+
+        const handleKeyDown = ({ key }: KeyboardEvent) => runOnKeyEvent(key, (element) => {
+            element.classList.add('active');
+        });
+
+        window.addEventListener('keyup', handleKeyUp);
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keyup', handleKeyUp);
+            window.removeEventListener('keyup', handleKeyDown);
+        };
+    }, []);
+
     return (
         <Container>
             {
@@ -37,15 +69,17 @@ export function Keyboard({ handleClick, handleErase, handleSubmit }: KeyboardPro
                         <React.Fragment key={ row.join('') }>
                             <KeyRow>
                                 {
-                                    lastRow && <KeyBox letter="Enter" handleClick={ handleSubmit } />
+                                    lastRow && <KeyBox letter={ ENTER_KEY } handleClick={ handleSubmit }/>
                                 }
                                 {
                                     row.map((key) => (
-                                        <KeyBox key={ key } letter={ key } handleClick={ handleClick } />
+                                        <KeyBox key={ key } letter={ key } handleClick={ handleClick }/>
                                     ))
                                 }
                                 {
-                                    lastRow && <KeyBox letter="<x]" handleClick={ handleErase } />
+                                    lastRow && <KeyBox letter={ BACKSPACE_KEY } handleClick={ handleErase }>
+                                        <Backspace/>
+                                    </KeyBox>
                                 }
                             </KeyRow>
                         </React.Fragment>
