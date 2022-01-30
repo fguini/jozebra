@@ -25,9 +25,7 @@ interface KeyStatus {
 
 interface KeyboardProps {
     attempts: Array<Attempt>;
-    handleClick: (letter: string) => void;
-    handleErase: () => void;
-    handleSubmit: () => void;
+    handleClick: (key: string) => void;
 }
 
 function getKeyStatuses(attempts: Array<Attempt>) {
@@ -45,7 +43,7 @@ function getKeyStatuses(attempts: Array<Attempt>) {
     }, {});
 }
 
-export function Keyboard({ attempts, handleClick, handleErase, handleSubmit }: KeyboardProps) {
+export function Keyboard({ attempts, handleClick }: KeyboardProps) {
     const { i18n } = useTranslation();
     const keyboardKeys = useMemo(() => getKeyboard(i18n.language), [ i18n.language ]);
     const [ keyStatus, setKeyStatus ] = useState<KeyStatus>({});
@@ -66,7 +64,7 @@ export function Keyboard({ attempts, handleClick, handleErase, handleSubmit }: K
                         <React.Fragment key={ row.join('') }>
                             <KeyRow>
                                 {
-                                    lastRow && <KeyBox letter={ ENTER_KEY } handleClick={ handleSubmit }/>
+                                    lastRow && <KeyBox letter={ ENTER_KEY } handleClick={ handleClick }/>
                                 }
                                 {
                                     row.map((key) => (
@@ -79,9 +77,11 @@ export function Keyboard({ attempts, handleClick, handleErase, handleSubmit }: K
                                     ))
                                 }
                                 {
-                                    lastRow && <KeyBox letter={ BACKSPACE_KEY } handleClick={ handleErase }>
-                                        <Backspace/>
-                                    </KeyBox>
+                                    lastRow && (
+                                        <KeyBox letter={ BACKSPACE_KEY } handleClick={ handleClick }>
+                                            <Backspace/>
+                                        </KeyBox>
+                                    )
                                 }
                             </KeyRow>
                         </React.Fragment>

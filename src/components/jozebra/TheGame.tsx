@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { WordAttempts } from './Attempts/WordAttempts';
 import { Keyboard } from './Keboard/Keyboard';
-import { Attempt, LetterStatus } from './GameUtils';
+import {
+    Attempt,
+    BACKSPACE_KEY,
+    ENTER_KEY,
+    Finished,
+    FINISHED_DEFEAT,
+    FINISHED_WIN,
+    LetterStatus,
+} from './GameUtils';
+import { GameOver } from './GameOver';
 
 interface TheGameProps {
     quantity?: number;
@@ -31,13 +40,47 @@ function getLetterStatuses(theWord: string, word: string): Array<LetterStatus> {
     return letterStatuses.map((status) => status || LetterStatus.NotThere);
 }
 
+function hasFinished(attempts: Array<Attempt>, quantity: number) {
+    let finished: Finished = false;
+    const lastAttempt = attempts[attempts.length - 1];
+    if(lastAttempt.letterStatuses.every((status) => status === LetterStatus.InPlace)) {
+        finished = FINISHED_WIN;
+    } else if(attempts.length === quantity) {
+        finished = FINISHED_DEFEAT;
+    }
+    return finished;
+}
+
 export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: TheGameProps) {
     const [ attempts, setAttempts ] = useState<Array<Attempt>>(
         () => words.map((word) => ({ letterStatuses: getLetterStatuses(theWord, word), word }))
     );
     const [ currentWord, setCurrentWord ] = useState<string>('');
+    const [ finished, setFinished ] = useState<Finished>(() => hasFinished(attempts, quantity));
 
-    function handleClick(letter: string) {
+    useEffect(() => {
+        setFinished(hasFinished(attempts, quantity));
+    }, [ attempts, quantity ]);
+
+    function handleClick(key: string) {
+        if(finished) {
+            return;
+        }
+
+        switch(key) {
+            case ENTER_KEY:
+                handleSubmit();
+                break;
+            case BACKSPACE_KEY:
+                handleErase();
+                break;
+            default:
+                handleWrite(key);
+                break;
+        }
+    }
+
+    function handleWrite(letter: string) {
         if(currentWord.length < wordLength) {
             setCurrentWord(`${currentWord}${letter}`);
         }
@@ -74,9 +117,8 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
             <Keyboard
                 attempts={ attempts }
                 handleClick={ handleClick }
-                handleErase={ handleErase }
-                handleSubmit={ handleSubmit }
             />
+            <GameOver finished={ finished }/>
         </>
     );
 }
