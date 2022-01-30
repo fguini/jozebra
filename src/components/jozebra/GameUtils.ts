@@ -14,6 +14,13 @@ export const STATUS_COLOR = {
     [LetterStatus.InPlace]: green['600'],
 };
 
+export const STATUS_ORDER = [
+    LetterStatus.NotAttempted,
+    LetterStatus.NotThere,
+    LetterStatus.InWord,
+    LetterStatus.InPlace
+];
+
 export interface Attempt {
     letterStatuses: Array<LetterStatus>;
     word: string;

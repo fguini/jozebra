@@ -72,6 +72,7 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
                 wordLength={ wordLength }
             />
             <Keyboard
+                attempts={ attempts }
                 handleClick={ handleClick }
                 handleErase={ handleErase }
                 handleSubmit={ handleSubmit }
