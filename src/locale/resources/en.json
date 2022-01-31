@@ -1,5 +1,14 @@
 {
   "app": {
+    "actions": {
+      "close": "close"
+    },
+    "gameOver": {
+      "title": {
+        "win": "You win!",
+        "defeat": "Best luck next time"
+      }
+    },
     "title": "JoZebra"
   }
 }

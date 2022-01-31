@@ -1,5 +1,14 @@
 {
   "app": {
+    "actions": {
+      "close": "cerrar"
+    },
+    "gameOver": {
+      "title": {
+        "win": "¡Has ganado!",
+        "defeat": "La próxima lo harás mejor"
+      }
+    },
     "title": "JoZebra"
   }
 }
