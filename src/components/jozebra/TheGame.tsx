@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { dictionary } from './dictionary';
 import { WordAttempts } from './Attempts/WordAttempts';
 import { Keyboard } from './Keboard/Keyboard';
 import {
@@ -88,7 +89,9 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
 
     function handleSubmit() {
         if(currentWord.length === wordLength) {
-            // TODO check if existent word
+            if(!dictionary.includes(currentWord)) {
+                return console.log('Not in my dictionary!');
+            }
             setAttempts([
                 ...attempts,
                 {

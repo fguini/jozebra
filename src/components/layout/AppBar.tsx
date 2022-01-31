@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppBar as MaterialAppBar, Container, Typography } from '@mui/material';
 import { Trans } from 'react-i18next';
+import { AppBar as MaterialAppBar, Container, Typography } from '@mui/material';
 
 export function AppBar() {
     return (<MaterialAppBar position="relative">
