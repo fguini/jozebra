@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Trans } from 'react-i18next';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Skeleton } from '@mui/material';
-import { Finished } from './GameUtils';
+import { Finished } from './utils';
 
 interface GameOverProps {
     finished: Finished;

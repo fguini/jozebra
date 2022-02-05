@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BACKSPACE_KEY, ENTER_KEY } from '../GameUtils';
+import { BACKSPACE_KEY, ENTER_KEY } from '../utils';
 
 export function useKeyboardListener() {
     useEffect(() => {

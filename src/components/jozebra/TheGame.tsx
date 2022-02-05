@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { dictionary } from './dictionary';
 import { WordAttempts } from './Attempts/WordAttempts';
 import { Keyboard } from './Keboard/Keyboard';
 import {
     Attempt,
     BACKSPACE_KEY,
+    dictionary,
     ENTER_KEY,
     Finished,
     FINISHED_DEFEAT,
     FINISHED_WIN,
     LetterStatus,
-} from './GameUtils';
+} from './utils';
 import { GameOver } from './GameOver';
 
 interface TheGameProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { WordRow } from './WordRow';
-import { Attempt } from '../GameUtils';
+import { Attempt } from '../utils';
 
 const Container = styled.div`
   display: flex;

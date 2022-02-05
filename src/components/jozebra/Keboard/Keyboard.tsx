@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Backspace } from '@mui/icons-material';
-import { Attempt, BACKSPACE_KEY, ENTER_KEY, getKeyboard, LetterStatus, STATUS_ORDER } from '../GameUtils';
+import { Attempt, BACKSPACE_KEY, ENTER_KEY, getKeyboard, LetterStatus, STATUS_ORDER } from '../utils';
 import { KeyBox } from './KeyBox';
 import { useKeyboardListener } from './useKeyboardListener';
 

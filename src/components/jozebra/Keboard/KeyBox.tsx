@@ -1,6 +1,6 @@
 import React from 'react';
 import { common } from '@mui/material/colors';
-import { LetterStatus, STATUS_COLOR } from '../GameUtils';
+import { LetterStatus, STATUS_COLOR } from '../utils';
 import styled from 'styled-components';
 
 interface BoxProps {

@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Attempt } from '../GameUtils';
+import { Attempt } from '../utils';
 import { LetterBox } from './LetterBox';
 
 const Container = styled.div`
