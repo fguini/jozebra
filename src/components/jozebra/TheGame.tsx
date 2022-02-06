@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { WordAttempts } from './Attempts/WordAttempts';
 import { Keyboard } from './Keboard/Keyboard';
 import {
     Attempt,
     BACKSPACE_KEY,
-    dictionary,
     ENTER_KEY,
     Finished,
     FINISHED_DEFEAT,
     FINISHED_WIN,
     LetterStatus,
+    TRY_ANIMATION_ATTEMPT,
+    TRY_ANIMATION_DEFEAT,
+    TRY_ANIMATION_WIN,
+    TRY_ANIMATION_WRONG,
+    TryAnimation,
 } from './utils';
-import { GameOver } from './GameOver';
+import { GameOver } from './GameOver/GameOver';
+import './GameStyle.css';
+import { getWords } from '../../services/word-service';
 
 interface TheGameProps {
     quantity?: number;
@@ -57,10 +63,22 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
         () => words.map((word) => ({ letterStatuses: getLetterStatuses(theWord, word), word }))
     );
     const [ currentWord, setCurrentWord ] = useState<string>('');
+    const [ tryAnimation, setTryAnimation ] = useState<TryAnimation>(null);
     const [ finished, setFinished ] = useState<Finished>(() => hasFinished(attempts, quantity));
+    const dictionary = useMemo(() => getWords(), []);
 
     useEffect(() => {
-        setFinished(hasFinished(attempts, quantity));
+        const finished = hasFinished(attempts, quantity);
+
+        if(finished === FINISHED_WIN) {
+            setTryAnimation(TRY_ANIMATION_WIN);
+        } else if(finished === FINISHED_DEFEAT) {
+            setTryAnimation(TRY_ANIMATION_DEFEAT);
+        } else {
+            setTryAnimation(TRY_ANIMATION_ATTEMPT);
+        }
+
+        setFinished(finished);
     }, [ attempts, quantity ]);
 
     function handleClick(key: string) {
@@ -90,7 +108,7 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
     function handleSubmit() {
         if(currentWord.length === wordLength) {
             if(!dictionary.includes(currentWord)) {
-                return console.log('Not in my dictionary!');
+                return setTryAnimation(TRY_ANIMATION_WRONG);
             }
             setAttempts([
                 ...attempts,
@@ -115,6 +133,7 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
                 attempts={ attempts }
                 currentWord={ currentWord }
                 quantity={ quantity }
+                tryAnimation={ tryAnimation }
                 wordLength={ wordLength }
             />
             <Keyboard
