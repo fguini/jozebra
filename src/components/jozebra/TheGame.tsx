@@ -2,17 +2,16 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { WordAttempts } from './Attempts/WordAttempts';
 import { Keyboard } from './Keboard/Keyboard';
 import {
+    Animations,
     Attempt,
+    ATTEMPT_ANIMATION_SUCCESSFUL,
+    ATTEMPT_ANIMATION_WRONG,
     BACKSPACE_KEY,
     ENTER_KEY,
     Finished,
     FINISHED_DEFEAT,
     FINISHED_WIN,
     LetterStatus,
-    TRY_ANIMATION_ATTEMPT,
-    TRY_ANIMATION_DEFEAT,
-    TRY_ANIMATION_WIN,
-    TRY_ANIMATION_WRONG,
     TryAnimation,
 } from './utils';
 import { GameOver } from './GameOver/GameOver';
@@ -63,7 +62,7 @@ function hasFinished(attempts: Array<Attempt>, quantity: number) {
 
 export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: TheGameProps) {
     const [ attempts, setAttempts ] = useState<Array<Attempt>>(
-        () => words.map((word) => ({ letterStatuses: getLetterStatuses(theWord, word), word }))
+        () => words.map((word) => ({ letterStatuses: getLetterStatuses(theWord, word), word })),
     );
     const [ currentWord, setCurrentWord ] = useState<string>('');
     const [ tryAnimation, setTryAnimation ] = useState<TryAnimation>(null);
@@ -73,16 +72,19 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
     useEffect(() => {
         const finished = hasFinished(attempts, quantity);
 
-        if(finished === FINISHED_WIN) {
-            setTryAnimation(TRY_ANIMATION_WIN);
-        } else if(finished === FINISHED_DEFEAT) {
-            setTryAnimation(TRY_ANIMATION_DEFEAT);
-        } else {
-            setTryAnimation(TRY_ANIMATION_ATTEMPT);
+        if(!finished) {
+            setTryAnimation(ATTEMPT_ANIMATION_SUCCESSFUL)
         }
 
         setFinished(finished);
     }, [ attempts, quantity ]);
+    useEffect(() => {
+        if(tryAnimation) {
+            setTimeout(() => {
+                setTryAnimation(null);
+            }, Animations[tryAnimation].time);
+        }
+    }, [ tryAnimation ])
 
     function handleClick(key: string) {
         if(finished) {
@@ -104,21 +106,21 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
 
     function handleWrite(letter: string) {
         if(currentWord.length < wordLength) {
-            setCurrentWord(`${currentWord}${letter}`);
+            setCurrentWord(`${ currentWord }${ letter }`);
         }
     }
 
     async function handleSubmit() {
         if(currentWord.length === wordLength) {
             if(!dictionary.includes(currentWord)) {
-                return setTryAnimation(TRY_ANIMATION_WRONG);
+                return setTryAnimation(ATTEMPT_ANIMATION_WRONG);
             }
             setAttempts([
                 ...attempts,
                 {
                     letterStatuses: getLetterStatuses(theWord, currentWord),
-                    word: await addAttempt(currentWord)
-                }
+                    word: await addAttempt(currentWord),
+                },
             ]);
             setCurrentWord('');
         }

@@ -5,7 +5,7 @@
     justify-content: space-around;
 }
 
-@keyframes WrongAnimation {
+@keyframes WrongAttemptAnimation {
     10% {
         transform: rotate(-15deg);
     }
@@ -26,7 +26,7 @@
     }
 }
 
-@keyframes AttemptAnimation {
+@keyframes SuccessAttemptAnimation {
     0% {
         filter: brightness(1.1);
         box-shadow: 1px 0 10px 1px #999;

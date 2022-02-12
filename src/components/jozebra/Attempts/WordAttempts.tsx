@@ -3,10 +3,8 @@ import styled from 'styled-components';
 import { WordRow } from './WordRow';
 import {
     Attempt,
-    TRY_ANIMATION_ATTEMPT,
-    TRY_ANIMATION_DEFEAT,
-    TRY_ANIMATION_WIN,
-    TRY_ANIMATION_WRONG,
+    ATTEMPT_ANIMATION_SUCCESSFUL,
+    ATTEMPT_ANIMATION_WRONG,
     TryAnimation,
 } from '../utils';
 
@@ -24,8 +22,8 @@ interface WordAttemptsProps {
     attempts: Array<Attempt>;
 }
 
-const CurrentAnimations: Array<TryAnimation> = [ TRY_ANIMATION_WRONG ];
-const LastWordAnimation: Array<TryAnimation> = [ TRY_ANIMATION_ATTEMPT, TRY_ANIMATION_DEFEAT, TRY_ANIMATION_WIN ];
+const CurrentAnimations: Array<TryAnimation> = [ ATTEMPT_ANIMATION_WRONG ];
+const LastWordAnimation: Array<TryAnimation> = [ ATTEMPT_ANIMATION_SUCCESSFUL ];
 
 export function WordAttempts({
     attempts,
@@ -39,8 +37,8 @@ export function WordAttempts({
     const lastWordIndex = currentWordIndex - 1;
 
     const wordAnimation = {
-        [currentWordIndex]: CurrentAnimations.includes(tryAnimation) ? tryAnimation : null,
-        [lastWordIndex]: LastWordAnimation.includes(tryAnimation) ? tryAnimation : null
+        [currentWordIndex]: CurrentAnimations.includes(tryAnimation) && tryAnimation,
+        [lastWordIndex]: LastWordAnimation.includes(tryAnimation) && tryAnimation,
     }
 
     return (<Container>
