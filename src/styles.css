@@ -1,0 +1,8 @@
+html, body, #root, main, .main-container {
+    height: 100%;
+}
+
+main {
+    margin-top: -56px;
+    padding-top: 56px;
+}

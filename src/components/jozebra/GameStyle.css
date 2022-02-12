@@ -1,3 +1,10 @@
+.the-game {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 @keyframes WrongAnimation {
     10% {
         transform: rotate(-15deg);

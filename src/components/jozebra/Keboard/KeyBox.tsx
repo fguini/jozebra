@@ -21,9 +21,30 @@ const Box = styled.button<BoxProps>`
   font-size: 1rem;
   font-weight: 600;
   text-transform: capitalize;
-  
+
   &:active, &.active {
-      background-color: ${ STATUS_COLOR[LetterStatus.NotThere] };
+    background-color: ${ STATUS_COLOR[LetterStatus.NotThere] };
+  }
+
+  @media (max-width: 600px) {
+    padding: 12px 12px;
+    min-width: 35px;
+    line-height: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 450px) {
+    padding: 10px 10px;
+    min-width: 25px;
+    line-height: 0.6rem;
+    font-size: 0.6rem;
+  }
+
+  @media (max-width: 330px) {
+    padding: 8px 8px;
+    min-width: 15px;
+    line-height: 0.4rem;
+    font-size: 0.4rem;
   }
 `;
 

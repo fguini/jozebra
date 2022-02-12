@@ -8,7 +8,7 @@ function App() {
     return (<>
         <AppBar/>
         <main>
-            <Container maxWidth="xl">
+            <Container className="main-container" maxWidth="xl">
                 <BrowserRouter>
                     <Routes>
                         <Route index element={ <Home/> }/>

@@ -128,7 +128,7 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
     }
 
     return (
-        <>
+        <div className="the-game">
             <WordAttempts
                 attempts={ attempts }
                 currentWord={ currentWord }
@@ -141,6 +141,6 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
                 handleClick={ handleClick }
             />
             <GameOver finished={ finished }/>
-        </>
+        </div>
     );
 }
