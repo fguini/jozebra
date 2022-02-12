@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Firework } from './Firework';
 
 interface FireworkSetup {
-    position: number;
     height: number;
+    key: string;
+    position: number;
 }
 
 type Callback = () => void;
@@ -34,17 +35,31 @@ function randomIntFromInterval(min: number, max: number) {
 }
 
 export function FireworkShow() {
-    const [ setup, setSetup ] = useState<FireworkSetup>({
-        position: randomIntFromInterval(20, 80),
-        height: randomIntFromInterval(20, 80)
-    });
+    const [ fireworksSetups, setFireworksSetups ] = useState<Array<FireworkSetup>>([]);
 
     useInterval(() => {
-        setSetup({
-            position: randomIntFromInterval(20, 80),
-            height: randomIntFromInterval(20, 80)
-        });
+        const newFireworksSetups = [
+            ...fireworksSetups,
+            {
+                key: randomIntFromInterval(20, 1000).toString(),
+                height: randomIntFromInterval(20, 80),
+                position: randomIntFromInterval(20, 80),
+            }
+        ];
+
+        if(newFireworksSetups.length > 4) {
+            newFireworksSetups.shift();
+        }
+
+        setFireworksSetups(newFireworksSetups);
     }, 1500);
 
-    return <Firework topHeight={setup.height} basePosition={setup.position}/>;
+    return (
+        <>
+            {
+                fireworksSetups.map((setup) =>
+                    <Firework key={ setup.key } topHeight={ setup.height } basePosition={ setup.position }/>)
+            }
+        </>
+    );
 }
