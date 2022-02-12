@@ -18,6 +18,7 @@ import {
 import { GameOver } from './GameOver/GameOver';
 import './GameStyle.css';
 import { getWords } from '../../services/word-service';
+import { addAttempt } from '../../services/attempt-service';
 
 interface TheGameProps {
     quantity?: number;
@@ -50,7 +51,9 @@ function getLetterStatuses(theWord: string, word: string): Array<LetterStatus> {
 function hasFinished(attempts: Array<Attempt>, quantity: number) {
     let finished: Finished = false;
     const lastAttempt = attempts[attempts.length - 1];
-    if(lastAttempt.letterStatuses.every((status) => status === LetterStatus.InPlace)) {
+    if(!lastAttempt) {
+        return finished;
+    } else if(lastAttempt.letterStatuses.every((status) => status === LetterStatus.InPlace)) {
         finished = FINISHED_WIN;
     } else if(attempts.length === quantity) {
         finished = FINISHED_DEFEAT;
@@ -105,7 +108,7 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
         }
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if(currentWord.length === wordLength) {
             if(!dictionary.includes(currentWord)) {
                 return setTryAnimation(TRY_ANIMATION_WRONG);
@@ -114,7 +117,7 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
                 ...attempts,
                 {
                     letterStatuses: getLetterStatuses(theWord, currentWord),
-                    word: currentWord
+                    word: await addAttempt(currentWord)
                 }
             ]);
             setCurrentWord('');
