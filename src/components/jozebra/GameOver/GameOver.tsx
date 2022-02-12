@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Trans } from 'react-i18next';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Skeleton } from '@mui/material';
+import { FireworkShow } from './FireworkShow';
 import { Finished, FINISHED_WIN } from '../utils';
 
 interface GameOverProps {
@@ -32,12 +33,7 @@ export function GameOver({ finished }: GameOverProps) {
                 </DialogActions>
             </Dialog>
             {
-                finished === FINISHED_WIN && (
-                    <div className="pyro">
-                        <div className="before"/>
-                        <div className="after"/>
-                    </div>
-                )
+                finished === FINISHED_WIN && open && <FireworkShow/>
             }
         </>
     );
