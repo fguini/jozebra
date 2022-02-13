@@ -78,8 +78,12 @@ export function Keyboard({ attempts, handleClick }: KeyboardProps) {
                                 }
                                 {
                                     lastRow && (
-                                        <KeyBox letter={ BACKSPACE_KEY } handleClick={ handleClick }>
-                                            <Backspace/>
+                                        <KeyBox
+                                            className="backspace"
+                                            letter={ BACKSPACE_KEY }
+                                            handleClick={ handleClick }
+                                        >
+                                            <Backspace fontSize="small"/>
                                         </KeyBox>
                                     )
                                 }
