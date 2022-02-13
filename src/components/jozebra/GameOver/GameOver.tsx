@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Trans } from 'react-i18next';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Skeleton } from '@mui/material';
-import { FireworkShow } from './FireworkShow';
+import { FireworkShow } from './FireworkShow/FireworkShow';
 import { Finished, FINISHED_WIN } from '../utils';
 
 interface GameOverProps {
