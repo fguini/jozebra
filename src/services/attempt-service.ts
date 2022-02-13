@@ -1,7 +1,7 @@
 import { Cache } from '../utils/cache-utils';
 import { isToday } from '../utils/date-utils';
 
-const CACHED_ATTEMPTS = 'attempts';
+const CACHED_ATTEMPTS = 'cached-attempts';
 
 export async function getAttempts() {
     return getCachedAttempts() || [];

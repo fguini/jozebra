@@ -37,7 +37,6 @@ export function Home() {
     if(status === 'pending') {
         return <div>Loading...</div>;
     } else if(status === 'resolved') {
-        console.log(theWord, attempts);
         return <TheGame theWord={ theWord ?? '' } words={ attempts }/>;
     } else {
         return <div>An error occurred: { error?.message ?? error }</div>;

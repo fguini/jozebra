@@ -91,7 +91,7 @@ export const Firework = styled.div<FireworkProp>`
       opacity: 0;
     }
     100% {
-      box-shadow: -120px -218px blue, 248px -16px #00ff84, 190px 16px #002bff, -113px -308px #ff009d,
+      box-shadow: -120px -218px #205ef3, 248px -16px #00ff84, 190px 16px #002bff, -113px -308px #ff009d,
         -109px -287px #ffb300, -50px -313px #ff006e, 226px -31px #ff4000, 180px -351px #ff00d0, -12px -338px #00f6ff,
         220px -388px #99ff00, -69px -27px #ff0400, -111px -339px #6200ff, 155px -237px #00ddff, -152px -380px #00ffd0,
         -50px -37px #00ffdd, -95px -175px #a6ff00, -88px 10px #0d00ff, 112px -309px #005eff, 69px -415px #ff00a6,

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Trans } from 'react-i18next';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Skeleton } from '@mui/material';
+import { Finished, FINISHED_DEFEAT, FINISHED_WIN } from '../utils';
 import { FireworkShow } from './FireworkShow/FireworkShow';
-import { Finished, FINISHED_WIN } from '../utils';
+import { LetterRain } from './LetterRain/LetterRain';
 
 interface GameOverProps {
     finished: Finished;
@@ -14,6 +15,18 @@ export function GameOver({ finished }: GameOverProps) {
     useEffect(() => {
         setOpen(!!finished);
     }, [ finished ]);
+
+    function getAnimation() {
+        if(!open) {
+            return;
+        }
+
+        if(finished === FINISHED_WIN) {
+            return <FireworkShow/>;
+        } else if(finished === FINISHED_DEFEAT) {
+            return <LetterRain/>
+        }
+    }
 
     return (
         <>
@@ -32,9 +45,7 @@ export function GameOver({ finished }: GameOverProps) {
                     </Button>
                 </DialogActions>
             </Dialog>
-            {
-                finished === FINISHED_WIN && open && <FireworkShow/>
-            }
+            { getAnimation() }
         </>
     );
 }

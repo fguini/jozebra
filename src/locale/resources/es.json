@@ -7,6 +7,13 @@
       "title": {
         "win": "¡Has ganado!",
         "defeat": "La próxima lo harás mejor"
+      },
+      "rain": {
+        "gameOver": "fin del juego",
+        "tryAgain": "intentalo de nuevo",
+        "continueImproving": "sigue mejorando",
+        "youAreGreat": "eres el mejor",
+        "justAMisstep": "solo un paso en falso"
       }
     },
     "title": "JoZebra"
