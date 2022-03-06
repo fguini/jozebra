@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useInterval } from '../../../hooks/use-interval';
+import { useInterval } from '../../../../hooks/useInterval';
 import { randomWithInterval } from '../../../../utils/number-utils';
 import { Firework } from './Firework';
 
