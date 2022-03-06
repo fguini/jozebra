@@ -1,7 +1,7 @@
 import { Cache } from '../../utils/cache-utils';
 import { getAttempts, addAttempt } from '../../services/attempt-service';
 
-describe('attempt service', () => {
+describe('AttemptService', () => {
     describe('getAttempts()', () => {
         afterEach(() => {
             Cache.clear();

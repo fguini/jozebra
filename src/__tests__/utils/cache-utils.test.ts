@@ -1,6 +1,6 @@
 import { Cache } from '../../utils/cache-utils';
 
-describe('cache utils', () => {
+describe('CacheUtils', () => {
     afterEach(() => {
         Cache.clear();
         jest.restoreAllMocks();

@@ -1,6 +1,6 @@
 import { isToday } from '../../utils/date-utils';
 
-describe('date utils', () => {
+describe('DateUtils', () => {
     describe('isToday()', () => {
         it('Should return true when today is passed', () => {
             const today = new Date();

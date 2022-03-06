@@ -1,6 +1,6 @@
 import { randomWithInterval } from '../../utils/number-utils';
 
-describe('number utils', () => {
+describe('NumberUtils', () => {
     describe('randomWithInterval()', () => {
         it('Should return number between min and max when min is lesser than max', () => {
             const ranges = [

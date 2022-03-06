@@ -1,7 +1,7 @@
 import { Cache } from '../../utils/cache-utils';
 import { getTodayWord, getWords } from '../../services/word-service';
 
-describe('word service', () => {
+describe('WordService', () => {
     describe('getWords()', () => {
         it('Should return a list of words', () => {
             const words = getWords();
