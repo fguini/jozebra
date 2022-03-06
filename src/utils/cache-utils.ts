@@ -13,9 +13,10 @@ class LocalCache {
         if(!rawCached) return null;
 
         try {
-            return JSON.parse(rawCached) as T;
+            const value = JSON.parse(rawCached) as T;
+            this.cache[key] = value;
+            return value;
         } catch(error) {
-            console.error('Error parsing cached data', key, error);
             this.remove(key);
             return null;
         }
@@ -31,6 +32,11 @@ class LocalCache {
     remove(key: string): void {
         delete this.cache[key];
         localStorage.removeItem(key);
+    }
+
+    clear(): void {
+        this.cache = {};
+        localStorage.clear();
     }
 }
 
