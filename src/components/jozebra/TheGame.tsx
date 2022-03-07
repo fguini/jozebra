@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { WordAttempts } from './Attempts/WordAttempts';
-import { Keyboard } from './Keboard/Keyboard';
+import { Keyboard } from './Keyboard/Keyboard';
 import {
     Animations,
     Attempt,
