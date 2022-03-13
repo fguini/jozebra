@@ -10,10 +10,10 @@ interface GameOverProps {
 }
 
 export function GameOver({ finished }: GameOverProps) {
-    const [ open, setOpen ] = useState<boolean>(!!finished);
+    const [ open, setOpen ] = useState<boolean>(Boolean(finished));
 
     useEffect(() => {
-        setOpen(!!finished);
+        Boolean(finished);
     }, [ finished ]);
 
     function getAnimation() {
