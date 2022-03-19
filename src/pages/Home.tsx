@@ -20,17 +20,15 @@ export function Home() {
     });
 
     useEffect(() => {
-        Promise.all([
-            getTodayWord(),
-            getAttempts(),
-        ])
-               .then(([ theWord, attempts ]) => {
-                   setState({
-                       attempts,
-                       status: 'resolved',
-                       theWord,
-                   });
-               }).catch((error) => setState({ error, status: 'rejected' }));
+        Promise.all([ getTodayWord(), getAttempts(), ])
+           .then(([ theWord, attempts ]) => {
+               setState({
+                   attempts,
+                   status: 'resolved',
+                   theWord,
+               });
+           })
+           .catch((error) => setState({ error, status: 'rejected' }));
     }, []);
 
     const { attempts, error, status, theWord } = state;
