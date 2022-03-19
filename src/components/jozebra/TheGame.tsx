@@ -79,11 +79,14 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
         setFinished(finished);
     }, [ attempts, quantity ]);
     useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
         if(tryAnimation) {
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 setTryAnimation(null);
             }, Animations[tryAnimation].time);
         }
+
+        return () => clearTimeout(timeoutId);
     }, [ tryAnimation ])
 
     function handleClick(key: string) {
@@ -93,7 +96,7 @@ export function TheGame({ quantity = 6, theWord, wordLength = 5, words = [] }: T
 
         switch(key) {
             case ENTER_KEY:
-                handleSubmit();
+                handleSubmit().catch(console.error);
                 break;
             case BACKSPACE_KEY:
                 handleErase();

@@ -13,7 +13,7 @@ export function GameOver({ finished }: GameOverProps) {
     const [ open, setOpen ] = useState<boolean>(Boolean(finished));
 
     useEffect(() => {
-        Boolean(finished);
+        setOpen(Boolean(finished));
     }, [ finished ]);
 
     function getAnimation() {
