@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Jozebra
+Doing a Wordle game in React just for fun
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Rest of readme is the generic one from Create React App: 
 
 ## Available Scripts
 
